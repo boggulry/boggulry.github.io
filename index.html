@@ -18,7 +18,7 @@
 
    <nav class="navbar fixed-top navbar-expand-lg navbar-dark page-navbar gradient">
       <div class="container">
-        <a class="navbar-brand logo" href="#">My CV</a>
+        <a class="navbar-brand logo" href="#">Resume</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -37,10 +37,11 @@
                 <li class="nav-item item">
                     <a class="nav-link" href="#hobbies">Hobbies</a>
                 </li>
+        
               </li>
             </ul>
           </div>
-          <a href="https://tutorialzine.com/2018/04/freebie-beautiful-cv-template-with-bootstrap" class="btn btn-danger download-template" role="button" aria-disabled="true">Download</a>
+          <!-- <a href="https://tutorialzine.com/2018/04/freebie-beautiful-cv-template-with-bootstrap" class="btn btn-danger download-template" role="button" aria-disabled="true">Download</a> -->
       </div>
     </nav>
     <main class="page cv-page">
@@ -267,13 +268,13 @@
 
       </section>
       <footer class="page-footer">
-        <div class="container">
+        <!-- <div class="container">
           <div class="social-icons">
             <a href="#"><i class="ion-social-facebook" title="Facebook"></i></a>
             <a href="#"><i class="ion-social-instagram-outline" title="Instagram"></i></a>
             <a href="#"><i class="ion-social-twitter" title="Twitter"></i></a>
           </div>
-        </div>
+        </div> -->
 
         
       </footer>
@@ -397,6 +398,8 @@
 
         // Fetch XKCD comic on page load
         fetchXKCDComic();
+
+        // dog api
 
         fetch('https://dog.ceo/api/breeds/image/random')
                         .then(response => response.json())
