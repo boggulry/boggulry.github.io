@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rahul Portfolio Website</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
   </head>
   <body>
    <nav class="navbar fixed-top navbar-expand-lg navbar-dark page-navbar gradient">
@@ -41,8 +43,13 @@
         <div class="container">
           <div class="avatar">
             <img class="img-fluid rounded-circle" src="assets/img/headshot.jpg">
+            <div>
+              <a href="https://info.flagcounter.com/ibft">
+                  <img src="https://s11.flagcounter.com/count2/ibft/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0">
+              </a>
           </div>
-          <p>Hello! I am <strong>Rahul Kumar Reddy Boggula</strong>. I am currently a Graduate Student at University of Cincinnati doing Masters in Information Technology. I am interested in web development and especially backend development and aspiting for roles in the same domain</p>
+          </div>
+          <p>Hello! I am <strong>Rahul Kumar Reddy Boggula</strong>. I am currently a Graduate Student at University of Cincinnati doing Masters in Information Technology. I am interested in web development and especially backend development and aspiring for roles in the same domain</p>
           <!-- <a href="#" class="btn btn-outline-primary">Hire Me</a> -->
           <div id="welcome-message"></div>
 
@@ -237,17 +244,20 @@
           <div class="hobbies group" id="hobbies">
             <h2 class="text-center">Hobbies</h2>
             <p class="text-center text-muted">My hobbies are watching TV series, playing PC games and combat games, travelling, origami and exploring DIY and open source projects for fun</p>
-            <div id="response"></div>
+            <hr>
+            <h2 class="text-center">Others</h2>
+            <b>Joke of the day</b>
+            <div id="joke"></div>
             <h2 class="mb-5">XKCD Comic</h2>
             <div id="xkcd-container">
                 <h3 id="xkcd-title"></h3>
                 <img id="xkcd-img" alt="XKCD Comic" />
                 <p id="xkcd-alt"></p>
             </div>
+            <h4>Random Dog Image</h4>
+            <img id="dog-image" src="" alt="Random Dog Image">
           </div>
-          <div>
-            <a href="https://info.flagcounter.com/Shs9"><img src="https://s11.flagcounter.com/count2/Shs9/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_20/viewers_0/labels_1/pageviews_1/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
-          </div>
+          
         </div>
 
 
@@ -264,8 +274,13 @@
         
       </footer>
     </main>
-  
+    <div><a href="https://info.flagcounter.com/PEIY"><img src="https://s11.flagcounter.com/count/PEIY/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a></div>
   </body>
+
+
+  <!-- Script code from here  -->
+
+
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="assets/js/script.js"></script>
@@ -333,22 +348,25 @@
       setInterval(displayTime, 500);
 
       // Function to fetch and display a joke
-  function fetchJoke() {
-      $.get("https://v2.jokeapi.dev/joke/Programming?type=single", function (result) {
-          console.log("From jokeAPI:" + JSON.stringify(result));
-          if (result && result.joke) {
-              $("#response").text("Programming joke of the day: " + result.joke);
-          } else {
-              $("#response").text("Couldn't retrieve a joke at this time.");
-          }
-      });
-  }
-
-  // Fetch initial joke
-  fetchJoke();
-
-  // Set interval to fetch a new joke every 1 minute
-  setInterval(fetchJoke, 60000); // 60000 milliseconds = 1 minute
+      function fetchJoke() {
+                        fetch('https://v2.jokeapi.dev/joke/Any')
+                            .then(response => response.json())
+                            .then(data => {
+                                // Check if the joke is a single joke or a setup and delivery
+                                const joke = data.type === 'single' ? data.joke : `${data.setup}<br>${data.delivery}`;
+                                // Display the joke
+                                document.getElementById('joke').innerHTML = joke;
+                            })
+                            .catch(error => {
+                                console.error('Error fetching joke:', error);
+                            });
+                    }
+            
+                    // Fetch a joke immediately when the page loads
+                    fetchJoke();
+            
+                    // Fetch a new joke every 1 minute
+                    setInterval(fetchJoke, 60000);
 
   // Function to fetch XKCD comic data
   function fetchXKCDComic() {
@@ -372,6 +390,14 @@
 
         // Fetch XKCD comic on page load
         fetchXKCDComic();
+
+        fetch('https://dog.ceo/api/breeds/image/random')
+                        .then(response => response.json())
+                        .then(data => {
+                            const dogImage = document.getElementById('dog-image');
+                            dogImage.src = data.message;
+                        })
+                        .catch(error => console.error('Error fetching data:', error));
 
 
 </script>
