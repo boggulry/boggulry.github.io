@@ -43,7 +43,27 @@
             <img class="img-fluid rounded-circle" src="assets/img/headshot.jpg">
           </div>
           <p>Hello! I am <strong>Rahul Kumar Reddy Boggula</strong>. I am currently a Graduate Student at University of Cincinnati doing Masters in Information Technology. I am interested in web development and especially backend development and aspiting for roles in the same domain</p>
-          <a href="#" class="btn btn-outline-primary">Hire Me</a>
+          <!-- <a href="#" class="btn btn-outline-primary">Hire Me</a> -->
+          <div id="welcome-message"></div>
+
+          <div id="digit-clock"></div>
+          <a href="/waph.html" target="_blank">Click here to view Web Application Programming and Hacking course</a> 
+          <div
+            id="date"
+            onclick="document.getElementById('date').innerText= Date()"
+          >
+            Click here to show Date
+          </div>
+          <div id="email" onclick="showhideEmail()">Show My Email</div>
+          <script src="assets/js/email.js"></script>
+          <canvas
+            id="analog-clock"
+            width="150"
+            height="150"
+            style="background-color: #999"
+          >
+          </canvas>
+          <script src="https://waph-uc.github.io/clock.js"></script>
         </div>
       </section>
       <section class="cv-block info">
@@ -212,12 +232,25 @@
                 </div>
               </div>
             </div>
+
           </div>
           <div class="hobbies group" id="hobbies">
             <h2 class="text-center">Hobbies</h2>
             <p class="text-center text-muted">My hobbies are watching TV series, playing PC games and combat games, travelling, origami and exploring DIY and open source projects for fun</p>
+            <div id="response"></div>
+            <h2 class="mb-5">XKCD Comic</h2>
+            <div id="xkcd-container">
+                <h3 id="xkcd-title"></h3>
+                <img id="xkcd-img" alt="XKCD Comic" />
+                <p id="xkcd-alt"></p>
+            </div>
+          </div>
+          <div>
+            <a href="https://info.flagcounter.com/Shs9"><img src="https://s11.flagcounter.com/count2/Shs9/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_20/viewers_0/labels_1/pageviews_1/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
           </div>
         </div>
+
+
       </section>
       <footer class="page-footer">
         <div class="container">
@@ -227,11 +260,122 @@
             <a href="#"><i class="ion-social-twitter" title="Twitter"></i></a>
           </div>
         </div>
+
+        
       </footer>
     </main>
+  
   </body>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="assets/js/script.js"></script>
+
+
+  <script type="text/javascript">
+    // Function to set a cookie
+    function setCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + value + expires + "; path=/";
+    }
+
+    // Function to get a cookie value
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    // Function to display welcome message based on cookie
+    function displayWelcomeMessage() {
+        var lastVisit = getCookie("lastVisit");
+
+        if (!lastVisit) {
+            // First time visit
+            setCookie("lastVisit", new Date(), 365); // Store the current date for future visits
+            document.getElementById("welcome-message").textContent = "Welcome to my homepage!";
+        } else {
+            // Returning visit
+            document.getElementById("welcome-message").textContent = "Welcome back! Your last visit was " + lastVisit;
+        }
+    }
+
+    // Display welcome message on page load
+    displayWelcomeMessage();
+
+          // code for analog clock
+      var canvas = document.getElementById("analog-clock");
+      var ctx = canvas.getContext("2d");
+      var radius = canvas.height / 2;
+      ctx.translate(radius, radius);
+      radius = radius * 0.9;
+      setInterval(drawClock, 1000);
+
+      function drawClock() {
+        drawFace(ctx, radius);
+        drawNumbers(ctx, radius);
+        drawTime(ctx, radius);
+      }
+
+      function displayTime() {
+        document.getElementById("digit-clock").innerHTML =
+          "Current time: " + new Date();
+      }
+      setInterval(displayTime, 500);
+
+      // Function to fetch and display a joke
+  function fetchJoke() {
+      $.get("https://v2.jokeapi.dev/joke/Programming?type=single", function (result) {
+          console.log("From jokeAPI:" + JSON.stringify(result));
+          if (result && result.joke) {
+              $("#response").text("Programming joke of the day: " + result.joke);
+          } else {
+              $("#response").text("Couldn't retrieve a joke at this time.");
+          }
+      });
+  }
+
+  // Fetch initial joke
+  fetchJoke();
+
+  // Set interval to fetch a new joke every 1 minute
+  setInterval(fetchJoke, 60000); // 60000 milliseconds = 1 minute
+
+  // Function to fetch XKCD comic data
+  function fetchXKCDComic() {
+            // Use the cors-anywhere proxy to bypass CORS issues during development
+            const proxyUrl = "https://api.allorigins.win/raw?url=";
+            const apiUrl = "https://xkcd.com/info.0.json";
+
+            // Fetch data from XKCD API through the proxy
+            fetch(proxyUrl + apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    // Update the HTML elements with XKCD comic data
+                    document.getElementById("xkcd-title").textContent = data.title;
+                    document.getElementById("xkcd-img").src = data.img;
+                    document.getElementById("xkcd-alt").textContent = data.alt;
+                })
+                .catch(error => {
+                    console.error("Error fetching XKCD comic:", error);
+                });
+        }
+
+        // Fetch XKCD comic on page load
+        fetchXKCDComic();
+
+
+</script>
+
+ 
 </html>
 
