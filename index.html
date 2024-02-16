@@ -9,8 +9,13 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+<script type="text/babel" src="projectsList.js" defer></script>
+
   </head>
   <body>
+    
+
    <nav class="navbar fixed-top navbar-expand-lg navbar-dark page-navbar gradient">
       <div class="container">
         <a class="navbar-brand logo" href="#">My CV</a>
@@ -44,6 +49,7 @@
           <div class="avatar">
             <img class="img-fluid rounded-circle" src="assets/img/headshot.jpg">
           </div>
+
           </div>
           <p>Hello! I am <strong>Rahul Kumar Reddy Boggula</strong>. I am currently a Graduate Student at University of Cincinnati doing Masters in Information Technology. I am interested in web development and especially backend development and aspiring for roles in the same domain</p>
           <!-- <a href="#" class="btn btn-outline-primary">Hire Me</a> -->
@@ -252,6 +258,8 @@
             </div>
             <h4>Random Dog Image</h4>
             <img id="dog-image" src="" alt="Random Dog Image">
+            <div id="root"></div>
+
           </div>
           
         </div>
@@ -274,12 +282,15 @@
   </body>
 
 
+
   <!-- Script code from here  -->
 
 
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="assets/js/script.js"></script>
+  <script src="projectsList.js" defer></script>
+
 
 
   <script type="text/javascript">
