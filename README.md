@@ -207,4 +207,4 @@ displayWelcomeMessage();
 
 ## Submission
 
-**pandoc** is used to generate the pdf report for submission from the **README.md** file for the lab 1. I made sure all the content is rendered properly. The PDF file is named as boggulry-waph-lab1.pdf
+**pandoc** is used to generate the pdf report for submission from the **README.md** file for the lab 1. I made sure all the content is rendered properly. The PDF file is named as boggulry-waph-project1.pdf
